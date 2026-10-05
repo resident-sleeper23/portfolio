@@ -1,85 +1,71 @@
-# Nuxt Starter
+# My Portfolio
+
+My personal portfolio site, built with [Nuxt](https://nuxt.com), [Nuxt UI](https://ui.nuxt.com), and [Tailwind CSS](https://tailwindcss.com).
 
 ## Getting started
 
-### Prerequisites/Dependencies
+### Requirements
 
-You will need the following installed on your system:
-
-- mise
-- Node.js (via mise)
-- pnpm (via mise)
-- Docker
+- [Node.js](https://nodejs.org) (current LTS version)
+- npm (comes with Node.js), or yarn, or pnpm
 
 ### Setup
 
 1. Clone the repository
 
    ```bash
-   git clone https://github.com/fairdataihub/nuxt-starter.git
+   git clone https://github.com/your-username/your-repo.git
+   cd your-repo
    ```
 
 2. Install the dependencies
 
    ```bash
-   mise trust # only needed if you are using mise on this project for the first time
-   mise install
-   pnpm install
+   npm install
    ```
 
-3. Add your environment variables. An example is provided at `.env.example`
+3. Start the development server
 
    ```bash
-   cp .env.example .env
+   npm run dev
    ```
 
-4. Start the development server
+4. Open http://localhost:3000 in your browser. The page updates automatically when you save a file.
 
-   ```bash
-   pnpm dev
-   ```
+Using yarn or pnpm? Replace `npm install` with `yarn` or `pnpm install`, and `npm run dev` with `yarn dev` or `pnpm dev`.
 
-5. Open the application in your browser
+## Scripts
 
-   ```bash
-   open http://localhost:3000
-   ```
+| Command            | What it does                                 |
+| ------------------ | -------------------------------------------- |
+| `npm run dev`      | Start the development server                 |
+| `npm run build`    | Build the site for production                |
+| `npm run generate` | Build a static version of the site           |
+| `npm run preview`  | Preview the production build locally         |
+| `npm run lint`     | Check the code for problems and formatting   |
+| `npm run lint:fix` | Automatically fix formatting and lint issues |
 
-## Development
+## Project structure
 
-### Database
-
-The application uses a PostgreSQL database for storing data. You can use Docker to run these services locally.
-
-```bash
-docker-compose -f ./dev-docker-compose.yaml up
-docker-compose -f ./dev-docker-compose.yaml up -d # if you want the db to run in the background
+```
+app/
+  app.vue          Root of the site (page title, layout wrapper)
+  pages/           Each file here becomes a page (index.vue is the home page)
+  layouts/         Shared page structure, such as header and footer
+  components/      Reusable pieces
+  assets/css/      Global styles
+public/            Images and files served as-is (favicon, photos, resume)
+nuxt.config.ts     Nuxt settings
 ```
 
-Close the database with:
+## Customizing
 
-```bash
-docker-compose -f ./dev-docker-compose.yaml down
-```
+- **Your content:** edit the text and lists at the top of `app/pages/index.vue`.
+- **Site title:** change `"Your Name"` in `app/app.vue`.
+- **Favicon:** replace `public/favicon.ico`.
+- **Images:** put them in `public/` and reference them like `/my-photo.jpg`.
+- **New page:** create `app/pages/about.vue` and it will be available at `/about`.
 
-### Prisma
+## Deploying
 
-The application uses Prisma to interact with the database.
-
-#### Kysely support
-
-This template supports both Prisma and Kysely by design.
-
-- Use Prisma for schema management, migrations, and generated types/client.
-- Use Kysely when you need more explicit SQL composition, advanced joins, or query-builder ergonomics.
-
-Why both:
-
-- Complex reporting or performance-sensitive queries can be written in Kysely without abandoning type safety.
-- You keep one source of truth for schema/migrations while still having low-level control where it matters.
-
-Example API routes are included for both approaches under [server/api/thing](server/api/thing) (Prisma) and [server/api/kysely-thing](server/api/kysely-thing) (Kysely).
-
-### UI
-
-The application uses [Nuxt UI](https://ui.nuxt.com) to build the UI components. It also uses [Tailwind CSS](https://tailwindcss.com) for styling.
+Run `npm run generate`. This creates a static site in `.output/public` that you can host for free on Netlify, Vercel, Cloudflare Pages, or GitHub Pages.

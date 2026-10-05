@@ -1,81 +1,75 @@
 <script setup lang="ts">
 useSeoMeta({
   title: "Home",
+  description: "Portfolio of Your Name, a web developer.",
 });
 
-const links = ref([
+// Edit the text below to make it yours.
+const name = "Your Name";
+const tagline = "Web developer";
+const intro =
+  "I build simple, useful things for the web. Replace this with a sentence or two about who you are and what you like to work on.";
+
+const heroLinks = ref([
   {
-    label: "Get started",
-    to: "/dashboard",
-    icon: "i-lucide-square-play",
+    label: "See my projects",
+    to: "#projects",
+    icon: "i-lucide-folder-open",
   },
   {
-    label: "Changelog",
-    to: "https://github.com/fairdataihub/nuxt-starter/blob/main/CHANGELOG.md",
+    label: "Contact me",
+    to: "#contact",
     variant: "subtle" as const,
     trailingIcon: "i-lucide-arrow-right",
   },
 ]);
 
-const features = ref([
+// Add, remove, or reorder projects here. Each one becomes a card.
+const projects = ref([
   {
-    title: "Accuracy rate",
-    description: "99.95% in fulfilling orders",
-    icon: "i-lucide-smile",
+    title: "Project One",
+    description: "What it does and what you built. Tech: Vue, Nuxt, Tailwind.",
+    icon: "i-lucide-code",
+    to: "https://github.com/your-username/project-one",
+    target: "_blank",
   },
   {
-    title: "Startup businesses",
-    description: "2,000+ partner with us",
-    icon: "i-lucide-a-large-small",
+    title: "Project Two",
+    description: "Another thing you made. Tech: JavaScript, HTML, CSS.",
+    icon: "i-lucide-palette",
+    to: "https://github.com/your-username/project-two",
+    target: "_blank",
   },
   {
-    title: "Happy customers this year",
-    description: "85% happy customer",
-    icon: "i-lucide-sun-moon",
+    title: "Project Three",
+    description: "A third project, or delete this one.",
+    icon: "i-lucide-rocket",
+    to: "https://github.com/your-username/project-three",
+    target: "_blank",
   },
 ]);
 
-const uiFeatures = ref([
+const skills = ["HTML", "CSS", "JavaScript", "Vue", "Nuxt", "Tailwind CSS"];
+
+const contactLinks = ref([
   {
-    title: "Theme",
-    description:
-      "Learn how to customize Nuxt UI components using Tailwind CSS v4.",
-    icon: "i-lucide-swatch-book",
-    class: "lg:col-span-2",
-    image: {
-      path: "https://ui2.nuxt.com/illustrations/color-palette",
-      width: 363,
-      height: 152,
-    },
-    orientation: "horizontal" as const,
+    label: "Email",
+    to: "mailto:you@example.com",
+    icon: "i-lucide-mail",
   },
   {
-    title: "Fonts",
-    description:
-      "Nuxt UI integrates with Nuxt Fonts to provide plug-and-play font optimization.",
-    icon: "i-lucide-a-large-small",
-    variant: "soft" as const,
+    label: "GitHub",
+    to: "https://github.com/your-username",
+    target: "_blank",
+    icon: "i-simple-icons-github",
+    variant: "subtle" as const,
   },
   {
-    title: "Color Mode",
-    description:
-      "Nuxt UI integrates with Nuxt Color Mode to switch between light and dark.",
-    icon: "i-lucide-sun-moon",
-    variant: "soft" as const,
-  },
-  {
-    title: "Icons",
-    description:
-      "Nuxt UI integrates with Nuxt Icon to access over 200,000+ icons from Iconify.",
-    icon: "i-lucide-smile",
-    image: {
-      path: "https://ui2.nuxt.com/illustrations/icon-library",
-      width: 362,
-      height: 184,
-    },
-    class: "lg:col-span-2",
-    orientation: "horizontal" as const,
-    reverse: true,
+    label: "LinkedIn",
+    to: "https://www.linkedin.com/in/your-username",
+    target: "_blank",
+    icon: "i-simple-icons-linkedin",
+    variant: "subtle" as const,
   },
 ]);
 </script>
@@ -83,69 +77,41 @@ const uiFeatures = ref([
 <template>
   <div>
     <UPageHero
-      title="FAIR Data Innovations Hub - Nuxt Starter Template"
-      description="A Nuxt starter template for the FAIR Data Innovations Hub. The starting point for all new projects and applications."
-      headline="New release"
-      :links="links"
-    >
-    </UPageHero>
+      :title="`Hi, I'm ${name}`"
+      :description="intro"
+      :headline="tagline"
+      :links="heroLinks"
+    />
 
-    <UContainer class="mb-20">
+    <UContainer id="projects" class="my-16">
+      <h2 class="mb-6 text-2xl font-semibold">Projects</h2>
       <UPageGrid>
         <UPageCard
-          v-for="(feature, index) in features"
-          :key="index"
-          v-bind="feature"
+          v-for="project in projects"
+          :key="project.title"
+          v-bind="project"
         />
       </UPageGrid>
     </UContainer>
 
-    <UContainer class="my-10">
-      <UPageCard
-        title="Tailwind CSS"
-        description="Nuxt UI integrates with latest Tailwind CSS v4, bringing significant improvements."
-        icon="i-simple-icons-tailwindcss"
-        orientation="horizontal"
-      >
-        <img
-          src="https://ui.nuxt.com/_ipx/_/tailwindcss-v4.svg"
-          alt="Tailwind CSS"
-          class="w-full"
+    <UContainer id="about" class="my-16">
+      <h2 class="mb-6 text-2xl font-semibold">Skills</h2>
+      <div class="flex flex-wrap gap-2">
+        <UBadge
+          v-for="skill in skills"
+          :key="skill"
+          :label="skill"
+          size="lg"
+          variant="subtle"
         />
-      </UPageCard>
+      </div>
     </UContainer>
 
-    <UContainer class="my-10">
-      <UPageGrid>
-        <UPageCard
-          title="Prisma ORM"
-          description="Use Prisma for schema management, migrations, and generated client/types to accelerate common CRUD workflows."
-          icon="i-simple-icons-prisma"
-          class="lg:col-span-2"
-        />
-        <UPageCard
-          title="Kysely Query Builder"
-          description="Use Kysely for advanced SQL composition, complex joins, and performance-sensitive queries with strong TypeScript safety."
-          icon="i-lucide-database-zap"
-        />
-      </UPageGrid>
-    </UContainer>
-
-    <UContainer class="my-10">
-      <UPageGrid>
-        <UPageCard v-for="(ui, index) in uiFeatures" :key="index" v-bind="ui">
-          <UColorModeImage
-            v-if="ui.image"
-            :light="`${ui.image.path}-light.svg`"
-            :dark="`${ui.image.path}-dark.svg`"
-            :width="ui.image.width"
-            :height="ui.image.height"
-            :alt="ui.title"
-            loading="lazy"
-            class="w-full"
-          />
-        </UPageCard>
-      </UPageGrid>
+    <UContainer id="contact" class="my-16 pb-16">
+      <h2 class="mb-6 text-2xl font-semibold">Contact</h2>
+      <div class="flex flex-wrap gap-3">
+        <UButton v-for="link in contactLinks" :key="link.label" v-bind="link" />
+      </div>
     </UContainer>
   </div>
 </template>
