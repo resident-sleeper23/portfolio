@@ -1,0 +1,85 @@
+# Nuxt Starter
+
+## Getting started
+
+### Prerequisites/Dependencies
+
+You will need the following installed on your system:
+
+- mise
+- Node.js (via mise)
+- pnpm (via mise)
+- Docker
+
+### Setup
+
+1. Clone the repository
+
+   ```bash
+   git clone https://github.com/fairdataihub/nuxt-starter.git
+   ```
+
+2. Install the dependencies
+
+   ```bash
+   mise trust # only needed if you are using mise on this project for the first time
+   mise install
+   pnpm install
+   ```
+
+3. Add your environment variables. An example is provided at `.env.example`
+
+   ```bash
+   cp .env.example .env
+   ```
+
+4. Start the development server
+
+   ```bash
+   pnpm dev
+   ```
+
+5. Open the application in your browser
+
+   ```bash
+   open http://localhost:3000
+   ```
+
+## Development
+
+### Database
+
+The application uses a PostgreSQL database for storing data. You can use Docker to run these services locally.
+
+```bash
+docker-compose -f ./dev-docker-compose.yaml up
+docker-compose -f ./dev-docker-compose.yaml up -d # if you want the db to run in the background
+```
+
+Close the database with:
+
+```bash
+docker-compose -f ./dev-docker-compose.yaml down
+```
+
+### Prisma
+
+The application uses Prisma to interact with the database.
+
+#### Kysely support
+
+This template supports both Prisma and Kysely by design.
+
+- Use Prisma for schema management, migrations, and generated types/client.
+- Use Kysely when you need more explicit SQL composition, advanced joins, or query-builder ergonomics.
+
+Why both:
+
+- Complex reporting or performance-sensitive queries can be written in Kysely without abandoning type safety.
+- You keep one source of truth for schema/migrations while still having low-level control where it matters.
+
+Example API routes are included for both approaches under [server/api/thing](server/api/thing) (Prisma) and [server/api/kysely-thing](server/api/kysely-thing) (Kysely).
+
+### UI
+
+The application uses [Nuxt UI](https://ui.nuxt.com) to build the UI components. It also uses [Tailwind CSS](https://tailwindcss.com) for styling.
