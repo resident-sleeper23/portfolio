@@ -1,32 +1,24 @@
 <script setup lang="ts">
 import type { NavigationMenuItem } from "@nuxt/ui";
 
-const { clear } = useUserSession();
-const route = useRoute();
+// Edit these to match the sections on your home page.
+const headerItems: NavigationMenuItem[] = [
+  { label: "Projects", to: "/#projects" },
+  { label: "Skills", to: "/#about" },
+  { label: "Contact", to: "/#contact" },
+];
 
-const logout = async () => {
-  clear();
-  await navigateTo("/login");
-};
-
-const headerItems = computed<NavigationMenuItem[]>(() => [
+// Replace the links with your own profiles.
+const socialLinks = [
   {
-    label: "Dashboard",
-    to: "/app/dashboard",
-    active: route.path.startsWith("/app/dashboard"),
+    label: "GitHub",
+    icon: "i-simple-icons-github",
+    to: "https://github.com/your-username",
   },
   {
-    label: "Changelog",
-    to: "https://github.com/fairdataihub/nuxt-starter/CHANGELOG.md",
-    target: "_blank",
-  },
-]);
-
-const footerItems: NavigationMenuItem[] = [
-  {
-    label: "Made by FAIR Data Innovations Hub",
-    to: "https://fairdataihub.org",
-    target: "_blank",
+    label: "LinkedIn",
+    icon: "i-simple-icons-linkedin",
+    to: "https://www.linkedin.com/in/your-username",
   },
 ];
 </script>
@@ -35,7 +27,7 @@ const footerItems: NavigationMenuItem[] = [
   <div>
     <UHeader>
       <template #title>
-        <NuxtLink to="/"> Nuxt App </NuxtLink>
+        <NuxtLink to="/">Your Name</NuxtLink>
       </template>
 
       <UNavigationMenu :items="headerItems" />
@@ -43,40 +35,25 @@ const footerItems: NavigationMenuItem[] = [
       <template #right>
         <UColorModeButton />
 
-        <UTooltip text="Open on GitHub" :kbds="['meta', 'G']">
-          <UButton
-            color="neutral"
-            variant="ghost"
-            to="https://github.com/fairdataihub/nuxt-starter"
-            target="_blank"
-            icon="i-simple-icons-github"
-            aria-label="GitHub"
-          />
-        </UTooltip>
+        <UButton
+          v-for="link in socialLinks"
+          :key="link.label"
+          :icon="link.icon"
+          :to="link.to"
+          :aria-label="link.label"
+          class="hidden sm:inline-flex"
+          color="neutral"
+          target="_blank"
+          variant="ghost"
+        />
+      </template>
 
-        <AuthState v-slot="{ loggedIn }">
-          <UButton
-            v-if="loggedIn"
-            color="neutral"
-            variant="outline"
-            @click="logout"
-          >
-            Logout
-          </UButton>
-
-          <div v-else class="flex items-center justify-center gap-3">
-            <UButton to="/login" color="neutral" variant="outline">
-              Sign in
-            </UButton>
-
-            <UButton to="/signup" color="neutral">
-              <template #trailing>
-                <Icon name="i-heroicons-arrow-right-20-solid" size="20" />
-              </template>
-              Sign up
-            </UButton>
-          </div>
-        </AuthState>
+      <template #body>
+        <UNavigationMenu
+          :items="headerItems"
+          class="-mx-2.5"
+          orientation="vertical"
+        />
       </template>
     </UHeader>
 
@@ -87,38 +64,20 @@ const footerItems: NavigationMenuItem[] = [
     <UFooter>
       <template #left>
         <p class="text-muted text-sm">
-          Copyright © {{ new Date().getFullYear() }}
+          Copyright © {{ new Date().getFullYear() }} Your Name
         </p>
       </template>
 
-      <UNavigationMenu :items="footerItems" variant="link" />
-
       <template #right>
         <UButton
-          icon="i-simple-icons-discord"
+          v-for="link in socialLinks"
+          :key="link.label"
+          :icon="link.icon"
+          :to="link.to"
+          :aria-label="link.label"
           color="neutral"
-          variant="ghost"
-          to="https://discord.gg/fairdataihub"
           target="_blank"
-          aria-label="Discord"
-        />
-
-        <UButton
-          icon="i-simple-icons-x"
-          color="neutral"
           variant="ghost"
-          to="https://x.com/fairdataihub"
-          target="_blank"
-          aria-label="X"
-        />
-
-        <UButton
-          icon="i-simple-icons-github"
-          color="neutral"
-          variant="ghost"
-          to="https://github.com/fairdataihub"
-          target="_blank"
-          aria-label="GitHub"
         />
       </template>
     </UFooter>

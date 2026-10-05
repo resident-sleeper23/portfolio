@@ -17,13 +17,10 @@ useHead({
   ],
 });
 
+// Change "Your Name" to your own name. Every page title becomes "Page - Your Name".
 useSeoMeta({
-  ogImage:
-    "https://kalai.fairdataihub.org/api/generate?title=Hello&description=This%20is%20a%20Nuxt%20starter%20template&app=fairdataihub&org=fairdataihub",
-  titleTemplate: "%s - Nuxt Starter Template",
-  twitterCard: "summary_large_image",
-  twitterImage:
-    "https://kalai.fairdataihub.org/api/generate?title=Hello&description=This%20is%20a%20Nuxt%20starter%20template&app=fairdataihub&org=fairdataihub",
+  titleTemplate: "%s - Your Name",
+  twitterCard: "summary",
 });
 </script>
 
